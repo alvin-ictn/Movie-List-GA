@@ -23,16 +23,3 @@ yarn-debug.log*
 yarn-error.log*
 
 
-# custom ignore
-package-lock.json
-package.json
-.env
-yarn.lock
-/public
-/src/serviceWorker.js
-/src/setupTests.js
-/src/index.jsx
-/src/App.jsx
-
-README.md
-/.vscode
