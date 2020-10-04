@@ -30,6 +30,7 @@ class App extends React.Component {
           <Route path="/" component={Dm} exact />
           {/* Detail Page: nampilin detail dari tv seriesnya */}
           <Route path="/detail" component={DetailPage} />
+
           {/* 404 Page */}
           <Route render={() => "404"} />
           </Switch>

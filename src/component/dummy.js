@@ -13,15 +13,16 @@ export default class dummy extends Component {
     db.discoverMovie().then(res => this.setState({...res}))
   }
 
-  // componentDidUpdate(){
-  //   console.log(this.state)
-  // }
+  componentDidUpdate(){
+    console.log(this.state)
+  }
 
   onClickDetail = (id) => {
     this.props.history.push({
-      pathname: `/detail/${id}`,
+      pathname: `/detail/${id}/overview`,
       state: { id }
     })
+    localStorage.setItem('pageid', id)
   }
   render() {
     return (
