@@ -1,8 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import {
-  Navbar,
-  Form,
-  FormControl,
   Image,
   Table,
   Badge,
@@ -13,7 +11,7 @@ import {
 
 import { GiStarsStack } from "react-icons/gi";
 import { FaRegEye, FaStar } from "react-icons/fa";
-import { IoIosStarOutline } from "react-icons/io";
+
 import Img from "../../images/poster.jpg";
 import styles from "./overview.module.css";
 

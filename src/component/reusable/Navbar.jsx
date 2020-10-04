@@ -11,7 +11,7 @@ import {
 import Logo from "../../images/Logo.svg";
 
 export default function Bar(props) {
-  let [isLogin, setLogin] = useState(false);
+  let [isLogin] = useState(false);
 
   return (
     <Navbar bg="white" expand="lg">

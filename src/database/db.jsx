@@ -27,5 +27,7 @@ const userLogin = (username,password) => {
 export {
   getMovieDetails,
   searchMovie,
-  discoverMovie
+  discoverMovie,
+  rateMovie,
+  userLogin
 }

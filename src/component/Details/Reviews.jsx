@@ -1,17 +1,9 @@
 import React, { Component } from "react";
 import {
-  Navbar,
-  Form,
-  FormControl,
   Image,
-  Table,
   Badge,
   Container,
-  Col,
-  Row,
   Card,
-  Accordion,
-  Button
 } from "react-bootstrap";
 
 import img from '../../images/thumbnail.jpg'
@@ -34,8 +26,8 @@ export default class Reviews extends Component {
     console.log(data)
     // this.setState({condition : !this.state.condition})
     // e.preventDefault()
-    let vae = e.target.parentNode;
-    console.log(e.target.parentNode.parentNode.parentNode.childNodes[1].childNodes[2].firstChild.firstChild)
+    // let vae = e.target.parentNode;
+    // console.log(e.target.parentNode.parentNode.parentNode.childNodes[1].childNodes[2].firstChild.firstChild)
   }
 
   render() {
