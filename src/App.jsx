@@ -11,7 +11,8 @@ class App extends React.Component {
     movie :[]
   }
   componentDidMount(){
-    db.getMovieDetails().then(res => console.log(res))
+    // db.getMovieDetails().then(res => console.log(res))
+    db.discoverMovie().then(res => console.log(res))
   }
   handleA = e => {
     console.log(db.getMovieDetails())
@@ -21,7 +22,7 @@ class App extends React.Component {
       <div className="App">
         <Header/>
         <Ov/>
-        <Rv/>
+        {/* <Rv/> */}
       </div>
     );
   }

@@ -50,6 +50,7 @@ export default function Overview() {
               </div>
             </div>
             <Table>
+              <tbody>
               <tr>
                 <td className="font-weight-bold">Actors</td>
                 <td>:</td>
@@ -80,6 +81,8 @@ export default function Overview() {
                 <td>:</td>
                 <td>100 episodes</td>
               </tr>
+              </tbody>
+              
             </Table>
           </Col>
           <Col md={8}>
