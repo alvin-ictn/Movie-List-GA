@@ -2,7 +2,7 @@ import axios from 'axios'
 
 
 const discoverMovie = (page = 1) => {
-  return axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&sort_by=popularity.desc&include_video=false&page=1`)
+  return axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&sort_by=popularity.desc&include_video=false&page=${page}`)
   .then(res => res.data)
 }
 

@@ -7,7 +7,7 @@ import * as db from './database/db'
 // import Rv from './component/Details/Reviews'
 import Dm from './component/dummy'
 import DetailPage from './pages/DetailPage'
-
+import Dum from './component/dummy2'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 class App extends React.Component {
@@ -24,7 +24,7 @@ class App extends React.Component {
   render(){
     return (
       <div className="App">
-
+        {/* <Dum/> */}
         <Router>
           <Switch>
           <Route path="/" component={Dm} exact />

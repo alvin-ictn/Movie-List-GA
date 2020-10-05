@@ -15,19 +15,19 @@ import { FaRegEye, FaStar } from "react-icons/fa";
 import Img from "../../images/poster.jpg";
 import styles from "./overview.module.css";
 
-export default function Overview() {
+export default function Overview(props) {
+  console.log(props)
   return (
-    <section className="movie--details--overview">
+    <section className={styles["movie--details--overview"]}>
       <Container>
         <Row>
           <Col md={4}>
             <div className="position-relative">
               <Image
                 style={{ position: "relative" }}
-                src={Img}
+                src={`https://image.tmdb.org/t/p/w1280/${props.poster_path}` || Img}
                 fluid
                 thumbnail
-                className="mb-3 mt-3"
               />
               <Row className={`${styles.movieheadline} text-light`}>
                 <Col>
