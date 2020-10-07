@@ -9,7 +9,6 @@ import Dm from './component/dummy'
 import DetailPage from './pages/DetailPage'
 import Dum from './component/dummy2'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import Circle from './component/reusable/CircleGenerator'
 
 
 class App extends React.Component {
@@ -21,7 +20,6 @@ class App extends React.Component {
     return (
       <div className="App">
         {/* <Dum/> */}
-        <Circle percentage={30} size={50} stroke={10}/>
         <Router>
           <Switch>
    

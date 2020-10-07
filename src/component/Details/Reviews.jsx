@@ -9,18 +9,36 @@ import {
 import img from '../../images/thumbnail.jpg'
 import ReactStars from "react-rating-stars-component";
 import styles from './Reviews.module.css'
+import Circle from '../../component/reusable/CircleGenerator'
 
 export default class Reviews extends Component {
   state = {
-    condition: [false, false, false, false]
+    condition: [false, false, false, false],
+    circle : {
+      percentage : 0,
+      size : 100,
+      stroke : 10,
+    }
   }
+
   componentDidMount() {
 
   }
+
   ratingChanged = (e) => {
     console.log(e)
   }
 
+  handleInput = (e) => {
+    console.log(e.target.value.length)
+    console.log(this.state.circle)
+    this.setState({
+      circle:{
+        ...this.state.circle,
+      percentage:e.target.value.length/280*100
+    }
+  })
+  }
   handleReview = (e) => {
     let data = this.state.condition.map(() => true)
     console.log(data)
@@ -33,6 +51,7 @@ export default class Reviews extends Component {
   render() {
     return (
       <section className={styles["movie--details--review"]}>
+        <Circle percentage={this.state.circle.percentage} size={this.state.circle.size} stroke={this.state.circle.stroke}/>
         <Container>
           <div className={styles["movie--details--review--post"]}>
             <div className={styles["movie--details--review--post--profile"]}></div>
@@ -51,7 +70,7 @@ export default class Reviews extends Component {
                 activeColor="#ffd700"
                 isHalf={true}
               />
-              <textarea className="form-control" rows="3"></textarea>
+              <textarea onKeyUp={(e) => this.handleInput(e)}className="form-control" rows="3"></textarea>
             </div>
           </div>
           <div className={styles["movie--details--review--list"]}>
