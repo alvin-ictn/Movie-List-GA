@@ -1,3 +1,44 @@
-.subs > *{
-  margin-right: 30px;
+.subs{
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
+  flex-wrap: wrap;
 }
+
+.subs > * {
+  font-size: max(1.2rem, min(2vw, 2rem))
+}
+
+@media(min-width: 540px){
+  .subs {
+    max-width: 540px;
+  }
+
+}
+@media (min-width: 768px) {
+  .movieheadline {
+    font-size: 12px;
+  }
+
+  .movieheadline>*:nth-child(1) {
+    padding: 0 0 0 10px;
+
+  }
+  
+  .movieheadline>*:nth-child(2) {
+    padding: 0 10px 0 0;
+  }
+}
+
+@media (min-width: 992px) {
+  .movieheadline {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .movieheadline {
+    font-size: 20px;
+  }
+}
+

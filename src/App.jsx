@@ -9,28 +9,25 @@ import Dm from './component/dummy'
 import DetailPage from './pages/DetailPage'
 import Dum from './component/dummy2'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import Circle from './component/reusable/CircleGenerator'
+
 
 class App extends React.Component {
   state = {
     movie :[]
   }
-  // componentDidMount(){
-  //   // db.getMovieDetails().then(res => console.log(res))
-  //   db.discoverMovie().then(res => console.log(res))
-  // }
-  handleA = e => {
-    console.log(db.getMovieDetails())
-  }
+  
   render(){
     return (
       <div className="App">
         {/* <Dum/> */}
+        <Circle percentage={30} size={50} stroke={10}/>
         <Router>
           <Switch>
-          <Route path="/" component={Dm} exact />
+   
           {/* Detail Page: nampilin detail dari tv seriesnya */}
-          <Route path="/detail" component={DetailPage} />
-
+          <Route path="/detail/:movieid" component={DetailPage} />
+          <Route path="/" component={Dm} />
           {/* 404 Page */}
           <Route render={() => "404"} />
           </Switch>

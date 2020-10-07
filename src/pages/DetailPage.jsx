@@ -48,19 +48,19 @@ export default class DetailPage extends Component {
         
         <Container>
           <Col md={12} className={styles.subs}>
-            <Link to={`/detail/${localStorage.getItem("pageid")}/overview`}>
+            <Link to={`/detail/${this.props.match.params.movieid}/overview`}>
               <Badge pill variant={this.state.style}>
                 Overview
               </Badge>
             </Link>
 
-            <Link to={`/detail/${localStorage.getItem("pageid")}/character`}>
+            <Link to={`/detail/${this.props.match.params.movieid}/character`}>
               <Badge pill variant={this.state.style}>
                 Character
               </Badge>
             </Link>
 
-            <Link to={`/detail/${localStorage.getItem("pageid")}/review`}>
+            <Link to={`/detail/${this.props.match.params.movieid}/review`}>
               <Badge pill variant={this.state.style}>
                 Review
               </Badge>
@@ -69,13 +69,13 @@ export default class DetailPage extends Component {
 
           <Switch>
             <Route
-              path={`/detail/${localStorage.getItem("pageid")}/overview`}
+              path={`/detail/:id/overview`}
               exact
             >
               <Ov {...this.state} />
             </Route>
             <Route
-              path={`/detail/${localStorage.getItem("pageid")}/review`}
+              path={`/detail/:id/review`}
               component={Rv}
             />
             <Route render={() => "404"} />
