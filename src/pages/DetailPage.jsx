@@ -4,20 +4,21 @@ import Header from "../component/Header";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Ov from "../component/Details/Overview";
 import Rv from "../component/Details/Reviews";
+import Cr from '../component/Details/Characters'
 import { Container, Col, Badge } from "react-bootstrap";
 import styles from './Details.module.css'
 
 export default class DetailPage extends Component {
   state = {};
   componentDidMount() {
-    console.log(this.props)
+    // console.log(this.props)
     let myId;
     try {
       myId = this.props.location.state.id;
     } catch {
       myId = localStorage.getItem("pageid");
     }
-    console.log(myId);
+    
     if (!myId || !this.props.location.state) {
       // this.props.history.replace("/");
       return;
@@ -77,6 +78,10 @@ export default class DetailPage extends Component {
             <Route
               path={`/detail/:id/review`}
               component={Rv}
+            />
+            <Route
+              path={`/detail/:id/character`}
+              component={Cr}
             />
             <Route render={() => "404"} />
           </Switch>
