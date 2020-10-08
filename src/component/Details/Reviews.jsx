@@ -15,8 +15,7 @@ export default class Reviews extends Component {
   state = {
     condition: [false, false, false, false],
     circle : {
-      percentage : 0,
-      size : 30,
+      length : 0,
     }
   }
 
@@ -29,28 +28,20 @@ export default class Reviews extends Component {
   }
 
   handleInput = (e) => {
-    console.log(e.target.value.length)
-    console.log(this.state.circle)
+    // console.log(e.target.value.length)
+    // console.log(this.state.circle)
     this.setState({
       circle:{
         ...this.state.circle,
-      percentage:e.target.value.length/280*100
+      length : e.target.value.length
     }
   })
-  }
-  handleReview = (e) => {
-    let data = this.state.condition.map(() => true)
-    console.log(data)
-    // this.setState({condition : !this.state.condition})
-    // e.preventDefault()
-    // let vae = e.target.parentNode;
-    // console.log(e.target.parentNode.parentNode.parentNode.childNodes[1].childNodes[2].firstChild.firstChild)
   }
 
   render() {
     return (
       <section className={styles["movie--details--review"]}>
-        <Circle percentage={this.state.circle.percentage} size={this.state.circle.size} text/>
+        <Circle length={this.state.circle.length} size={30} text/>
         <Container>
           <div className={styles["movie--details--review--post"]}>
             <div className={styles["movie--details--review--post--profile"]}></div>
@@ -61,7 +52,6 @@ export default class Reviews extends Component {
               >
                 Alvin Mantovani
               </label>
-              <label onClick={(e) => this.handleReview(e)}>Read</label>
               <ReactStars
                 count={5}
                 onChange={(e) => this.ratingChanged(e)}
@@ -69,7 +59,7 @@ export default class Reviews extends Component {
                 activeColor="#ffd700"
                 isHalf={true}
               />
-              <textarea onKeyUp={(e) => this.handleInput(e)}className="form-control" rows="3"></textarea>
+              <textarea onChange={(e) => this.handleInput(e)}className="form-control" rows="3"></textarea>
             </div>
           </div>
           <div className={styles["movie--details--review--list"]}>
