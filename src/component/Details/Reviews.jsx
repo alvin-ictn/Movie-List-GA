@@ -16,8 +16,7 @@ export default class Reviews extends Component {
     condition: [false, false, false, false],
     circle : {
       percentage : 0,
-      size : 100,
-      stroke : 10,
+      size : 30,
     }
   }
 
@@ -51,7 +50,7 @@ export default class Reviews extends Component {
   render() {
     return (
       <section className={styles["movie--details--review"]}>
-        <Circle percentage={this.state.circle.percentage} size={this.state.circle.size} stroke={this.state.circle.stroke}/>
+        <Circle percentage={this.state.circle.percentage} size={this.state.circle.size} text/>
         <Container>
           <div className={styles["movie--details--review--post"]}>
             <div className={styles["movie--details--review--post--profile"]}></div>
