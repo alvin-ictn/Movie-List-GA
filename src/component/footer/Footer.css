@@ -1,0 +1,37 @@
+.main-footer{
+   color: white;
+   background-color: black;
+   padding-top: 3em;
+   bottom: 0;
+   width: 100%;
+
+}
+
+.column2{
+   margin-left: 100px;
+   color: white;
+}
+    
+.column3__google{
+   width:150px;
+}
+
+.column3__applestore{
+   width:150px;
+   height: 25%;
+   margin-top: 6px;
+}
+
+li{
+   font-size: 23px;
+   margin-left: 30px;
+   padding-top: 5px;
+   color: white;
+}
+
+.column3{
+   margin-left: 170px;
+   padding: 0;
+   
+}
+
