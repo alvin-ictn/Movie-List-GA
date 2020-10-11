@@ -19,14 +19,12 @@ class App extends React.Component {
   render(){
     return (
       <div className="App">
-        {/* <Dum/> */}
         <Router>
           <Switch>
    
           {/* Detail Page: nampilin detail dari tv seriesnya */}
           <Route path="/detail/:movieid" component={DetailPage} />
           <Route path="/" component={Dm} />
-          {/* 404 Page */}
           <Route render={() => "404"} />
           </Switch>
         </Router>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   Navbar,
   Form,
@@ -14,19 +14,21 @@ import Logo from "../../images/Logo.svg";
 
 export default function Bar(props) {
   let [isLogin] = useState(false);
+
   const [condition,setCondition] = useState({
     sign: false,
     login: false,
   })
-
+  
   const [show, setShow] = useState(false)
 
 
-const handleModal = () =>
-{
-    setShow(!show)
-}
+  const handleModal = () => setShow(!show)
 
+
+  useEffect(()=>{
+    localStorage.getItem('token') && setCondition({...condition,login:true})
+  })
 
   return (
     <Navbar bg="white" expand="lg">
