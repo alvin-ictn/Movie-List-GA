@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import * as db from "../database/db";
 import Header from "../component/Header";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
 import Ov from "../component/Details/Overview";
 import Rv from "../component/Details/Reviews";
 import Cr from '../component/Details/Characters'
@@ -26,7 +26,7 @@ export default class DetailPage extends Component {
       db.getMovieDetails(myId).then((res) => this.setState({ ...res }));
     }
 
-    this.setState({ ["style"]: "danger" })
+    this.setState({ "styleButton": "danger" })
   }
 
   componentDidUpdate() {
@@ -50,19 +50,19 @@ export default class DetailPage extends Component {
         <Container>
           <Col md={12} className={styles.subs}>
             <Link to={`/detail/${this.props.match.params.movieid}/overview`}>
-              <Badge pill variant={this.state.style}>
+              <Badge pill variant={this.state.styleButton}>
                 Overview
               </Badge>
             </Link>
 
             <Link to={`/detail/${this.props.match.params.movieid}/character`}>
-              <Badge pill variant={this.state.style}>
+              <Badge pill variant={this.state.styleButton}>
                 Character
               </Badge>
             </Link>
 
             <Link to={`/detail/${this.props.match.params.movieid}/review`}>
-              <Badge pill variant={this.state.style}>
+              <Badge pill variant={this.state.styleButton}>
                 Review
               </Badge>
             </Link>

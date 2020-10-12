@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import * as db from "../database/db";
 import Header from "./Header";
-
-import { Pagination } from "react-bootstrap";
 export default class dummy extends Component {
   state = {
     results: [],
@@ -51,7 +49,7 @@ export default class dummy extends Component {
   componentDidUpdate() {
     
     
-    console.log("step1 get discover data", this.state);
+    // console.log("step1 get discover data", this.state);
   }
    onClickDetail = (id) => {
     this.props.history.push({
