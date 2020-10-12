@@ -9,9 +9,9 @@
   font-size: max(1.2rem, min(2vw, 2rem))
 }
 
-@media(min-width: 540px){
+@media(min-width: 320px){
   .subs {
-    max-width: 540px;
+    max-width: 320px;
   }
 
 }

@@ -28,3 +28,55 @@
 .movie--details--review--list--item--reviewer--body {
     text-align: justify;
 }
+
+.textBox {
+    width : 70%
+}
+
+@media(max-width:1280px){
+    .textBox {
+        width : 100%
+    }
+
+    .circleE {
+        width: 100px;
+    }
+}
+
+@media(max-width:575px){
+    .textBox {
+        width : 78%
+    }
+}
+
+@media(max-width:505px){
+    .textBox {
+        width : 74%
+    }
+}
+
+@media(max-width:455px){
+    .textBox {
+        width : 70%
+    }
+}
+
+@media(max-width:400px){
+    .textBox {
+        width : 60%;
+    }
+}
+
+@media(max-width:370px){
+    .textBox {
+        width : 60%;
+    }
+}
+
+@media(max-width:320px){
+    .textBox {
+        width : 180px;
+    }
+
+}
+

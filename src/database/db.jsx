@@ -132,56 +132,45 @@ const movie = (method, content = null, token = null) => {
   }
 }
 
+const review = (method, content = null, token = null, query = null) => {
+  // get method
+  if (method === "get") {
+    return axios.get(
+      `${configuration.url}${configuration.endpoint.review.self}`,
+      {
+        headers: {
+          ...token,
+        },
+      }
+    ).then(res => res)
+  }
 
-const discoverMovie = (page = 1) => {
-  return axios
-    .get(
-      `${configuration.url}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&sort_by=popularity.desc&include_video=false&page=${page}`
-    )
-    .then((res) => res.data);
-};
+  if(method === "all") {
+    return axios.get(
+      `${configuration.url}${configuration.endpoint.review.self}/allreviews`,
+      {
+        headers: {
+          ...token,
+        },
+      }
+    ).then(res => res)
+  }
 
-const getMovieDetails = (movieId = 557) => {
-  return axios
-    .get(
-      `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
-    )
-    .then((res) => res.data);
-};
+  if (method === "post") {
+    return axios.get(
+      `${configuration.url}${configuration.endpoint.movie.search.title}?Id=${query}`,content,
+      {
+        headers: {
+          ...token,
+        },
+      }
+    ).then(res => res)
+  }
+}
 
-const searchMovie = (lang = "en-US", query = "spiderman") => {
-  return axios
-    .get(
-      `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=${lang}&query=${query}`
-    )
-    .then((res) => res.data);
-};
-
-const getMovieCast = (id = 557) => {
-  return axios
-    .get(
-      `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
-    )
-    .then((res) => res.data);
-};
-
-const getCastDetails = (lang = "en-US", id = 2219) => {
-  return axios
-    .get(
-      `https://api.themoviedb.org/3/person/${id}/combined_credits?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=${lang}`
-    )
-    .then((res) => res.data);
-};
-
-const userLogin = (username, password) => {};
 
 export {
   user,
   movie,
-  getMovieDetails,
-  searchMovie,
-  discoverMovie,
-  getMovieCast,
-  getCastDetails,
-  userLogin,
+  review
 };

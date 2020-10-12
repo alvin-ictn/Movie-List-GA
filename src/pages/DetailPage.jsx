@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import { movie } from "../database/db";
 import Header from "../component/Header";
 import { Route, Switch, Link } from "react-router-dom";
-import Ov from "../component/Details/Overview";
-import Rv from "../component/Details/Reviews";
-import Cr from '../component/Details/Characters'
+import Overview from "../component/Details/Overview";
+import Review from "../component/Details/Reviews";
 import { Container, Col, Badge } from "react-bootstrap";
 import styles from './Details.module.css'
 
@@ -22,13 +21,13 @@ export default class DetailPage extends Component {
   }
 
   componentDidUpdate() {
-    console.log(this.state);
+
   }
 
   render() {
     return (
       <>
-      {console.log(this.state.data && this.state.data.backdrop)}
+
         {this.state.data ? <Header
           img={this.state.data.backdrop}
         /> : <Header
@@ -45,12 +44,6 @@ export default class DetailPage extends Component {
               </Badge>
             </Link>
 
-            <Link to={`/detail/${this.props.match.params.movieid}/character`}>
-              <Badge pill variant={this.state.styleButton}>
-                Character
-              </Badge>
-            </Link>
-
             <Link to={`/detail/${this.props.match.params.movieid}/review`}>
               <Badge pill variant={this.state.styleButton}>
                 Review
@@ -63,15 +56,11 @@ export default class DetailPage extends Component {
               path={`/detail/:id/overview`}
               exact
             >
-              <Ov {...this.state} />
+              <Overview {...this.state} />
             </Route>
             <Route
               path={`/detail/:id/review`}
-              component={Rv}
-            />
-            <Route
-              path={`/detail/:id/character`}
-              component={Cr}
+              component={Review}
             />
             <Route render={() => "404"} />
           </Switch>
