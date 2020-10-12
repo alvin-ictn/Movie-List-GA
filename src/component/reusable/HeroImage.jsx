@@ -2,7 +2,6 @@ import React from 'react'
 import {
   Image,
 } from "react-bootstrap";
-import img from '../../images/jumbotron.jpg'
 
 export default function HeroImage(props) {
   return (
