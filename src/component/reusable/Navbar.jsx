@@ -13,7 +13,7 @@ import Logo from "../../images/Logo.svg";
 
 
 export default function Bar(props) {
-  let [isLogin] = useState(false);
+  let [isLogin,setLogin] = useState(false);
 
   const [condition,setCondition] = useState({
     sign: false,
@@ -27,8 +27,8 @@ export default function Bar(props) {
 
 
   useEffect(()=>{
-    localStorage.getItem('token') && setCondition({...condition,login:true})
-  })
+    localStorage.getItem('token') && setLogin(true)
+  },[isLogin])
 
   return (
     <Navbar bg="white" expand="lg">
