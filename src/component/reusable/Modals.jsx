@@ -3,72 +3,67 @@ import { Button, Col, InputGroup } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 
 export default function Modals(props) {
+  // state for form on line 33 ~ 65
   const [form, setForm] = useState({
     name: "Alvin",
     email: "Mantovani",
     password: "alvin.ictn",
   });
 
-  const [isSignup, setModal] = useState(props.login || true);
+  const [isSignup, setModal] = useState(props.login || true); // state for manage condition Log In or Sign Up mostly at render()
 
-  const [errorMsg, setError] = useState({ email: [], password: [], passwordVerify : [], name: [] });
+  const [errorMsg] = useState({ email: [], password: [], passwordVerify : [], name: [] }); // state for storing error Message on line 33 ~ 65
 
-  const formData = new FormData();
+  const [isValid,setValid] = useState(false); // state for check if the input has no error before submit
 
-  const [token, setToken] = useState(localStorage.getItem("token") || "");
+  const formData = new FormData(); // variable for store form data before post
 
+  const [token,setToken] = useState(localStorage.getItem("token") || ""); // state for set up token and check token on localstorage 
+  const passwordVerifyRef = useRef(null)
+  // a life cycle that happend every token is change, and do set to localStorage with tablename "token" to store token
   useEffect(() => {
     localStorage.setItem("token", token);
   }, [token]);
 
+  // a function to handle input and do form validation over here too
   const handleInput = (e) => {
     let data = { ...form };
     let error = errorMsg;
     
+    // input validation for email
     if(e.target.name === "email"){
-        if((!e.target.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/) || e.target.value.includes(" "))){
-            !error.email.includes('please use correct email format eg: @alvin@sleepy.me') && error.email.push('please use correct email format eg: @alvin@sleepy.me')
-        } else {
-            error.email = error.email.filter(item => item != 'please use correct email format eg: @alvin@sleepy.me')
-        }
+        (!e.target.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/) || e.target.value.includes(" "))
+            ? !error.email.length == 1 && error.email.push('please use correct email format eg: alvin@sleepy.me')
+            : error.email = error.email.filter(item => item != 'please use correct email format eg: alvin@sleepy.me')
     }
 
+    // input validation for password
     if(e.target.name === "password"){
-        if(!e.target.value.match(/(?=.*[a-zA-Z])/)){
-            !error.password.includes('doesn\'t contain alphabetical') && error.password.push('doesn\'t contain alphabetical')
-        }else {
-            error.password = error.password.filter(item => item != 'doesn\'t contain alphabetical')
-        }
+        !e.target.value.match(/(?=.*[a-zA-Z])/) 
+            ? !error.password.includes('alphabetical') && error.password.push('alphabetical')
+            : error.password = error.password.filter(item => item != 'alphabetical')
+        !e.target.value.match(/(?=.*\d)/)
+            ? !error.password.includes('number') &&  error.password.push('number')
+            : error.password = error.password.filter(item => item != 'number')
+        e.target.value.match(/(?=.*[a-zA-Z])+(?=.*\d)/) && (error.password = []);
 
-        if(!e.target.value.match(/(?=.*\d)/)){
-            !error.password.includes('doesn\'t contain number') &&  error.password.push('doesn\'t contain number')
-        }else {
-            error.password = error.password.filter(item => item != 'doesn\'t contain number')
-        }
-
-        if(e.target.value.match(/(?=.*[a-zA-Z])+(?=.*\d)/)) error.password = [];
     }
 
-   console.log(error)
-    console.log()
+    // input validation for verify password and condition if verify password input not add value to state
     if (e.target.name === "password2") {
-        if(e.target.value !== form.password){
-            !error.passwordVerify.includes('password doesn\'t match with previous one') && error.passwordVerify.push('password doesn\'t match with previous one')
-        }else {
-            error.passwordVerify = error.passwordVerify.filter(item => item != 'password doesn\'t match with previous one')
-        }
-    } else if (e.target.name === "image") {
-      data = { ...data, [e.target.name]: e.target.files[0] };
-      formData.append(e.target.name, e.target.files[0]);
-    } else {
+        e.target.value !== form.password
+            ? !error.passwordVerify.includes('password doesn\'t match with previous one') && error.passwordVerify.push('password doesn\'t match with previous one')
+            : error.passwordVerify = error.passwordVerify.filter(item => item != 'password doesn\'t match with previous one')
+    } else { // if the input box is not verify password add the value to state and formdata
       data = { ...data, [e.target.name]: e.target.value };
       formData.append(e.target.name, e.target.value);
     }
-    let errorLength = Object.values(error).flat().length;
+    
+    // setform data
     setForm(data);
   };
 
@@ -80,32 +75,34 @@ export default function Modals(props) {
     setModal(!isSignup);
   };
 
-  const SignUp = (e) => {
+  const submitButton = (e) => {
     e.preventDefault();
     if (isSignup) {
-      console.log("SIGNUP");
+        axios({
+            method: 'post',
+            url: 'https://quiet-hollows-95792.herokuapp.com/register',
+            data: formData,
+            headers: {'Content-Type': 'multipart/form-data' }
+            })
+            .then(function (response) {
+                //handle success
+                setToken(response.data.token)
+                console.log(token)
+                return response.data.token
+            }).then(function(response){
+    
+            })
+            .catch(function (err) {
+                //handle error
+                console.errpr(err);
+            });
     } else {
       console.log("E");
     }
+    let errorLength = Object.values(errorMsg).flat().length
 
-    // axios({
-    //     method: 'post',
-    //     url: 'https://quiet-hollows-95792.herokuapp.com/register',
-    //     data: formData,
-    //     headers: {'Content-Type': 'multipart/form-data' }
-    //     })
-    //     .then(function (response) {
-    //         //handle success
-    //         setToken(response.data.token)
-    //         console.log(token)
-    //         return response.data.token
-    //     }).then(function(response){
+    //passwordVerifyRef.current.value.length
 
-    //     })
-    //     .catch(function (err) {
-    //         //handle error
-    //         console.errpr(err);
-    //     });
   };
   return (
     <div>
@@ -156,7 +153,7 @@ export default function Modals(props) {
                 placeholder="Password"
               />
                 <Form.Text type="invalid" className="text-danger">
-                  {errorMsg.password.length ? "password " : ""} {errorMsg.password.length > 1 ? errorMsg.password.join(' and ') : errorMsg.password}
+                  {errorMsg.password.length > 1 ? "password must contains " : errorMsg.password.length == 1 ? "password must contain " : ""} {errorMsg.password.length > 1 ? errorMsg.password.join(' and ') : errorMsg.password}
                 </Form.Text>
             </Form.Group>
             {isSignup && (
@@ -167,6 +164,7 @@ export default function Modals(props) {
                   name="password2"
                   type="password"
                   placeholder="PasswordConfirmation"
+                  ref={passwordVerifyRef}
                 />
                 <Form.Text className="text-danger">
                     {errorMsg.passwordVerify}
@@ -185,8 +183,8 @@ export default function Modals(props) {
               </Form.Group>
             )} */}
             <Button
-              onClick={SignUp}
-              className="Button-SignUp"
+              onClick={submitButton}
+              className="Button-Submit"
               variant="primary"
               type="submit"
             >
