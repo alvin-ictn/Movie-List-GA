@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Card, Image } from "react-bootstrap";
+// import { Card, Image } from "react-bootstrap";
 import { getMovieCast } from "../../database/db";
-import ScrollMenu from "react-horizontal-scrolling-menu";
-import { IoIosArrowDropleft, IoIosArrowDropright } from "react-icons/io";
 
 export default function Characters() {
   const [cast, setCast] = useState([]);
@@ -11,28 +9,9 @@ export default function Characters() {
   const [isError, setError] = useState(false);
 
   const [list, setList] = useState([]);
-  const [selected, setSelected] = useState(1)
+  const [selected] = useState(1)
 
-  const MenuItem = ({ text, selected }) => {
-    return <div className={`menu-item ${selected ? 'active' : ''}`}>{text}</div>;
-  };
-  
-  const Menu = (list, selected) =>
-  list.map(el => {
-    const { character, cast_id } = el;
-    const onClick = () => console.log('original onClick ', character);
-    return (
-      <MenuItem text={character} key={cast_id} selected={selected} onClick={onClick} />
-    );
-  });
-
-  const ArrowLeft = () => {
-    return <IoIosArrowDropleft />;
-  };
-
-  const ArrowRight = () => {
-    return <IoIosArrowDropright />;
-  };
+  console.log(crew,selected)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,9 +39,6 @@ export default function Characters() {
     console.log(data)
   }, [cast]);
 
-  const onSelect = key => {
-
-  }
   //cast.map(item=> (<p key={item.id}>{item.character}</p>))
   return (
     <section className="credits">
