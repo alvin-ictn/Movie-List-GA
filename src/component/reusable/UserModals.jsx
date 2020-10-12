@@ -38,7 +38,7 @@ export default function UserModals(props,location) {
       onHide={props.handle}
     >
       <Modal.Header className="Modal Modal-Header" closeButton>
-        {modal.toUpperCase()}
+        {modal && modal.toUpperCase()}
       </Modal.Header>
       <Modal.Body className="Modal Modal-Body">
         <Form>

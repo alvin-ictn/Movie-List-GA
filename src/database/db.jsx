@@ -115,7 +115,23 @@ const user = (method, content = null, token = null) => {
         console.error(err);
       });
   }
-};
+}
+
+const movie = (method, content = null, token = null) => {
+  // get method
+  if (method === "detail") {
+    return axios.get(
+      `${configuration.url}`
+    ).then(res => res)
+  }
+
+  if (method === "search") {
+    return axios.get(
+      `${configuration.url}${configuration.endpoint.movie.search.title}?title=${content}`
+    ).then(res => res)
+  }
+}
+
 
 const discoverMovie = (page = 1) => {
   return axios
@@ -161,6 +177,7 @@ const userLogin = (username, password) => {};
 
 export {
   user,
+  movie,
   getMovieDetails,
   searchMovie,
   discoverMovie,

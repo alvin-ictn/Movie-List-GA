@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
+import React,{ useState, useEffect } from "react";
 import {
   Image,
   Table,
@@ -12,20 +12,33 @@ import {
 import { GiStarsStack } from "react-icons/gi";
 import { FaRegEye, FaStar } from "react-icons/fa";
 
-import Img from "../../images/poster.jpg";
+
 import styles from "./overview.module.css";
 
+import { movie } from '../../database/db'
+
 export default function Overview(props) {
-  console.log(props)
+  const [query] = useState(window.location.href.split('/'));
+
+  const [data,setData] = useState()
+
+  useEffect(() => {
+    movie("search",query[query.length - 2]).then(res => setData(res.data[0]))
+  },[query])
+
+  useEffect(()=>{
+    console.log(data)
+  },[data])
+
   return (
     <section className={styles["movie--details--overview"]}>
       <Container>
         <Row>
           <Col md={4}>
             <div className="position-relative">
-              {props.poster_path ? <Image
+              {data ? <Image
                 style={{ position: "relative" }}
-                src={`https://image.tmdb.org/t/p/w500/${props.poster_path}` || Img}
+                src={data.poster}
                 fluid
                 thumbnail
               /> : <Image style={{ position: "relative" }}
@@ -36,68 +49,55 @@ export default function Overview(props) {
                 <Col>
                   <a style={{ paddingRight: "5px" }}>Rating :</a>{" "}
                   <GiStarsStack color={"#ffc107"} />
-                  <a style={{ padding: "0 0px 0 5px" }}>8/10</a>
+                  <a style={{ padding: "0 0px 0 5px" }}>{data && data.rating}/10</a>
                 </Col>
                 <Col>
                   <FaRegEye color={"#ffc107"} />
-                  <a style={{ paddingLeft: "5px" }}>99999 Views</a>
+                  <a style={{ paddingLeft: "5px" }}>595218 Views</a>
                 </Col>
               </Row>
               <div className={`${styles.movieStar} text-light`}>
                 <FaStar size={"80"} color={"#ffc107"} />
                 <a href="#" className={styles.score}>
-                  6.2
+                  {data && data.rating}
                 </a>
               </div>
             </div>
             <Table>
               <tbody>
               <tr>
-                <td className="font-weight-bold">Actors</td>
+                <td className="font-weight-bold">Title</td>
                 <td>:</td>
-                <td>BB</td>
+                <td>{data && data.title}</td>
               </tr>
               <tr>
                 <td className="font-weight-bold">Category</td>
                 <td>:</td>
                 <td>
-                  <Badge variant="primary">Action</Badge>{" "}
-                  <Badge variant="secondary">Drama</Badge>{" "}
-                  <Badge variant="success">Animation</Badge>{" "}
-                  <Badge variant="danger">Horror</Badge>{" "}
+                  {data && data.category.split(" ").map((item, index) => (
+                    item.toLowerCase() === "action" 
+                      ? <Badge key={index} variant="primary">Action</Badge>
+                    : item.toLowerCase() === "thriller" 
+                      ? <Badge key={index} variant="danger">Thriller</Badge> 
+                    : <Badge key={index} variant="primary">Romance</Badge> 
+                  ))}
                 </td>
               </tr>
               <tr>
-                <td className="font-weight-bold">Release Date</td>
+                <td className="font-weight-bold">Created Date</td>
                 <td>:</td>
-                <td>20 September 2090</td>
-              </tr>
-              <tr>
-                <td className="font-weight-bold">Duration</td>
-                <td>:</td>
-                <td>24 mins</td>
-              </tr>
-              <tr>
-                <td className="font-weight-bold">Total Episode</td>
-                <td>:</td>
-                <td>100 episodes</td>
+                <td>{data && new Date(data.createdAt).toString()}</td>
               </tr>
               </tbody>
               
             </Table>
           </Col>
           <Col md={8}>
-            <h4>||original-title||</h4>
             <h3>
-              Spider-Man 3 <Badge variant="danger">18+</Badge>
+              {data && data.title} <Badge variant="danger">{data && data.rating}</Badge>
             </h3>
-            <h4>||overview||</h4>
             <p>
-              The seemingly invincible Spider-Man goes up against an all-new
-              crop of villains—including the shape-shifting Sandman. While
-              Spider-Man’s superpowers are altered by an alien organism, his
-              alter ego, Peter Parker, deals with nemesis Eddie Brock and also
-              gets caught up in a love triangle.
+              {data && data.synopsis}
             </p>
           </Col>
         </Row>
