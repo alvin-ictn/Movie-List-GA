@@ -25,7 +25,6 @@ export default function UserModals(props,location) {
         setUser(res.data.users)
       }
     })
-
   },[token])
 
   useEffect(()=>{
