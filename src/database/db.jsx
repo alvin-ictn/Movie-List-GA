@@ -40,10 +40,24 @@ const user = (method, content = null, token = null) => {
       `${configuration.url}${configuration.endpoint.user.self}`,
       {
         headers: {
-          ...token,
-        },
+          token
+        }
       }
     );
+  }
+
+  if (method === "getuser") {
+    return axios
+      .get(
+        `${configuration.url}${configuration.endpoint.user.edit}`,
+        {
+          headers: {
+            token
+          }
+        }
+      )
+      .then(res => res)
+      .catch(err => err.response);
   }
 
   if (method === "alluser") {

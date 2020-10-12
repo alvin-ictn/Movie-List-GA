@@ -1,11 +1,13 @@
 import React,{ useEffect, useState} from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
-
+import { user } from '../../database/db'
 
 export default function UserModals(props,location) {
   const [modal,setModal] = useState("")
 
+  const [token,setToken] = useState(localStorage.getItem('token') || "")
 
+  const [userData,setUser] = useState({})
 
   useEffect(()=> {
     let link = window.location.href.split('/')
@@ -13,8 +15,22 @@ export default function UserModals(props,location) {
   })
 
   useEffect(()=>{
-    console.log(modal)
+    setToken(localStorage.getItem('token'))
   },[modal])
+
+  useEffect(()=>{
+    user("getuser",null,token).then(res => {
+      console.log(res)
+      if(res.status === 201 || res.status === 200) {
+        setUser(res.data.users)
+      }
+    })
+
+  },[token])
+
+  useEffect(()=>{
+    console.log(userData)
+  },[userData])
 
   return (
     <Modal

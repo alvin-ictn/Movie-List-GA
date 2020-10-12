@@ -2,14 +2,12 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 // import Header from './component/Header'
 import '.'
-import * as db from './database/db'
 // import Ov from './component/Details/Overview'
 // import Rv from './component/Details/Reviews'
 import Dm from './component/dummy'
 import DetailPage from './pages/DetailPage'
-import Dum from './component/dummy2'
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 class App extends React.Component {
   state = {

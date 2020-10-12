@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 export default function CircleGenerator(props) {
+  const [number] = useState(props.length)
   const [pathDimension, setpathDimension] = useState(0);
   const [circleSize, setcircleSize] = useState(0);
   const [percentage,setPercentage] = useState(0);
@@ -10,7 +11,7 @@ export default function CircleGenerator(props) {
   const text = props.text ? props.text : false
 
   useEffect(() => {
-    let percentageCalc = props.length / 280 * 100;
+    let percentageCalc = number / 280 * 100;
     if((percentage >= (charLimit - 20) / charLimit * 100)) {
       setScale(1.5)
     }else {
@@ -19,7 +20,7 @@ export default function CircleGenerator(props) {
     percentageCalc <= 100 
     ? setPercentage(percentageCalc)
     : setPercentage(100)
-  })
+  },[number, percentage])
 
   useEffect(() => {
     setpathDimension(Math.PI * size * 2);
