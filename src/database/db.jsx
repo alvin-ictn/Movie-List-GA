@@ -59,18 +59,18 @@ const user = (method, content = null, token = null) => {
 
   // post method
   if (method === "register") {
-    return axios.post(
-      `${configuration.url}${configuration.endpoint.user.register}`,
-      content
-    );
+    return axios
+      .post(`${configuration.url}${configuration.endpoint.user.register}`, content)
+      .then(res => res)
+      .catch(err => err.response)
   }
 
   if (method === "login") {
-    console.log({ ...content });
     return axios
       .post(`${configuration.url}${configuration.endpoint.user.login}`, content)
       .then((res) => res)
-      .catch((err) => err);
+      .catch((err) => err.response
+      );
   }
 
   // delete method

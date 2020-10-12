@@ -9,11 +9,12 @@ import {
 } from "react-bootstrap";
 import Modal from './Modals'
 
+import UserModal from './UserModals';
+
 import Logo from "../../images/Logo.svg";
 
 export default function Bar(props) {
   const [isLogin,setLogin] = useState(false);
-  const [token, setToken] = useState({token : ""})
   const [userData,setData] = useState(JSON.parse(localStorage.getItem('userdata')) || {name:"",image:""})
   // const [condition,setCondition] = useState({
   //   sign: false,
@@ -31,16 +32,19 @@ export default function Bar(props) {
   const handleModal = () => {
     setShow(!show)
   }
+
+  const usermodal = () => {
+    
+  }
   
   useEffect(()=>{
     localStorage.getItem('token') && setLogin(true)
-    localStorage.getItem('token') && setToken(localStorage.getItem('token'))
   },[isLogin])
 
   return (
-    <Navbar href={""} bg="white" expand="lg">
+    <Navbar  bg="white" expand="lg">
       <Modal show={show} handleModal={handleModal} closeModal={closeModal}/>
-      <Container>
+      <Container style={{maxWidth: "100vw"}}>
         <Col xs lg="4" className="justify-content-start text-left">
           <Navbar.Brand href="#home">
             <Image style={{ width: "200px" }} src={Logo} />
@@ -51,12 +55,12 @@ export default function Bar(props) {
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
           </Form>
         </Col>
-        <Col xs lg="2" className="justify-content-end text-right">
+        <Col xs lg="2" className="justify-content-end text-right" onClick={usermodal}>
           {!isLogin ? (
-            <a onClick={handleModal}>Sign Up</a>
+            <p style={{"marginBottom":0}} onClick={handleModal}>Sign Up</p>
           ) : (
           <>
-              <Navbar.Text>
+              <Navbar.Text className={"mr-3"}>
                 {userData.name}
               </Navbar.Text>
               <Image
