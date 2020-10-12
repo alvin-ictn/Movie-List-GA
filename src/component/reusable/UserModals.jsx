@@ -20,7 +20,6 @@ export default function UserModals(props,location) {
 
   useEffect(()=>{
     user("getuser",null,token).then(res => {
-      console.log(res)
       if(res.status === 201 || res.status === 200) {
         setUser(res.data.users)
       }
@@ -28,7 +27,7 @@ export default function UserModals(props,location) {
   },[token])
 
   useEffect(()=>{
-    console.log(userData)
+
   },[userData])
 
   return (
