@@ -28,7 +28,7 @@ const configuration = {
 
     //review
     review: {
-      self: "/review/", // [GET] all user review
+      self: "/review", // [GET] all user review
     },
   },
 };
@@ -157,14 +157,19 @@ const review = (method, content = null, token = null, query = null) => {
   }
 
   if (method === "post") {
-    return axios.get(
-      `${configuration.url}${configuration.endpoint.movie.search.title}?Id=${query}`,content,
+    console.log("IMhere")
+    console.log(query)
+    console.log(content)
+    console.log(token)
+    return axios.post(
+      `${configuration.url}${configuration.endpoint.review.self}?MovieId=${query}`,content,
       {
         headers: {
-          ...token,
+          token
         },
       }
     ).then(res => res)
+    .catch(err => err.response)
   }
 }
 

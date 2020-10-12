@@ -8,6 +8,8 @@
 
 .movie--details--review--list--item--thumbnail {
     height: 50px;
+    width: 50px;
+    object-fit: contain;
     margin: .5rem 2rem .5rem 0;
 }
 
