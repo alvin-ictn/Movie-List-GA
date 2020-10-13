@@ -38,13 +38,13 @@ export default class DetailPage extends Component {
         
         <Container>
           <Col md={12} className={styles.subs}>
-            <Link to={`/detail/${this.props.match.params.movieid}/overview`}>
+            <Link to={`/Le-Movie/detail/${this.props.match.params.movieid}/overview`}>
               <Badge pill variant={this.state.styleButton}>
                 Overview
               </Badge>
             </Link>
 
-            <Link to={`/detail/${this.props.match.params.movieid}/review`}>
+            <Link to={`/Le-Movie/detail/${this.props.match.params.movieid}/review`}>
               <Badge pill variant={this.state.styleButton}>
                 Review
               </Badge>
@@ -53,13 +53,13 @@ export default class DetailPage extends Component {
 
           <Switch>
             <Route
-              path={`/detail/:id/overview`}
+              path={`/Le-Movie/detail/:id/overview`}
               exact
             >
               <Overview {...this.state} />
             </Route>
             <Route
-              path={`/detail/:id/review`}
+              path={`/Le-Movie/detail/:id/review`}
               component={Review}
             />
             <Route render={() => "404"} />

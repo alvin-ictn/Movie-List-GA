@@ -18,9 +18,10 @@ export default class dummy extends Component {
   componentDidUpdate() {
     console.log(this)
   }
+
    onClickDetail = (id) => {
     this.props.history.push({
-      pathname: `/detail/${id}/overview`,
+      pathname: `/Le-Movie/detail/${id}/overview`,
       state: { id },
     });
     localStorage.setItem("pageid", id);

@@ -19,11 +19,10 @@ const configuration = {
         title: "/titlesearch", // [GET] movie by title search
         categorysearch: "/categorysearch", // [GET] movie by category search
       },
-      pagedmovie: "/movie", // [GET] build-in paged movie or [DELETE] movie
+      self: "/movie", // [GET] build-in paged movie or [DELETE] movie
       add: "/movie/addMovie", // [POST] add movie
       edit: "/movie/editMovie", // [PUT] edit Movie
       editGet: "/movie/editMovie", // [GET] edit Movie??
-      delete: "/movie/", // [DELETE] movie
     },
 
     //review
@@ -134,6 +133,7 @@ const movie = (method, content = null, token = null) => {
       `${configuration.url}${configuration.endpoint.movie.search.title}?title=${content}`
     ).then(res => res)
   }
+
 }
 
 const review = (method, content = null, token = null, query = null) => {
@@ -175,6 +175,18 @@ const review = (method, content = null, token = null, query = null) => {
   if (method === "edit") {
     return axios.put(
       `${configuration.url}${configuration.endpoint.review.self}?MovieId=${query}`,content,
+      {
+        headers: {
+          token
+        },
+      }
+    ).then(res => res)
+    .catch(err => err.response)
+  }
+
+  if (method === "delete") {
+    return axios.delete(
+      `${configuration.url}${configuration.endpoint.review.self}?id=${query}`,
       {
         headers: {
           token

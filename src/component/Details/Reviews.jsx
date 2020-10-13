@@ -22,7 +22,6 @@ import Circle from '../../component/reusable/CircleGenerator'
 
 import Skeleton from 'react-loading-skeleton';
 
-
 export default function Reviews(){
   const [query] = useState(window.location.href.split('/'));
 
@@ -36,7 +35,7 @@ export default function Reviews(){
 
   const [filterReview, setReview] = useState();
 
-  const [myReview, setMine] = useState()
+  const [myReview, setMine] = useState({id:0})
 
   const [pReview,setPost] = useState()
 
@@ -60,12 +59,11 @@ export default function Reviews(){
     if(reviw && dataMovie) {
 
       let dataReview = reviw.filter(item => item.MovieId === dataMovie.id)
-
       let myReview = dataReview.filter(item => item.user.id === userData.id)
-      
-      setReview(dataReview)
-      setMine(myReview[0])
+      myReview.length ? setMine(myReview[0]) : setMine({id:0})
+      setReview(dataReview) 
     }
+    
   },[dataMovie, reviw, userData])
 
 
@@ -83,13 +81,22 @@ export default function Reviews(){
   }
 
   const handleEdit = (e) => {
+    console.log(myRef)
+    console.log(myReview)
     textbox.current.value = myRef.current.innerText;
     textbox.current.focus();
     setEdit(true)
   }
 
   const handleDelete = (e) => {
-    console.log(myReview)
+    //method, content = null, token = null, query = null
+    myReview && 
+    review("delete",null,localStorage.getItem('token'),myReview.id).then(res => {
+      if(res.status === 200 || res.status === 201) {
+        setLoading(true)
+      }
+    })
+    textbox.current.value = ""
   }
 
   const pressIt = (e) => {
@@ -112,10 +119,9 @@ export default function Reviews(){
               console.error(res.data.msg)
             }
           })
-          textbox.current.value = ""
-            setLoading(true)
         }
-   
+        textbox.current.value = ""
+        setLoading(true)
     }
   }
 
@@ -143,16 +149,15 @@ export default function Reviews(){
               </Col>
               <Col> </Col>
             </Row>
-              
             </div>
             <Row>
               <Col sm={10} className={styles.textBox}>
                 <textarea ref={textbox} onKeyPress={(e) => pressIt(e)} onChange={(e) => handleInput(e)}className="form-control" rows="3"></textarea></Col>
               <Col sm={2} className={`${styles.circleE} align-self-center text-right`}><Circle length={chara} size={30} text/></Col>
             </Row>
-          
         </div>
-        <div className={styles["movie--details--review--list"]}>
+        {!isLoading ? 
+          <div className={styles["movie--details--review--list"]}>
           {filterReview && filterReview.map( item => (
             <Card key={item.id}
               border="primary"
@@ -164,7 +169,7 @@ export default function Reviews(){
                   : item.user.image.match(/^(http|https):/) 
                   ? `${item.user.image}.png`
                   : `${url}/${item.user.image}`}`
-                } alt="" className={styles["movie--details--review--list--item--thumbnail"]} />
+                } alt="Missing" className={styles["movie--details--review--list--item--thumbnail"]} />
                 <div className={styles["movie--details--review--list--item--reviewer"]}>
                   <div className={styles["movie--details--review--list--item--reviewer--head"]}>
                     <div className="movie--details--review--list--item--reviewer--head--content">
@@ -178,15 +183,19 @@ export default function Reviews(){
                     <div className={styles["movie--details--review--list--item--reviewer--head--rate"]}>
                       <ReactStars
                         count={5}
-                        value={item.rating/2}
+                        value={item.rating}
                         size={24}
                         activeColor="#ffd700"
                         isHalf={true}
+                        edit={false}
                       />
                     </div>
                   </div>
-                  <Card.Text ref={myRef} className={styles["movie--details--review--list--item--reviewer--body"]}>
-                  {!isLoading ? item.content : <Skeleton/>}
+                  <Card.Text ref={item.id === myReview.id ? myRef : null} className={styles["movie--details--review--list--item--reviewer--body"]}>
+                  {!isLoading // false -> true
+                    ? item.content 
+                    : item.id === myReview.id 
+                    ? <Skeleton/> : item.content}
                   </Card.Text>
                 </div>
               </Card.Body>
@@ -216,8 +225,7 @@ export default function Reviews(){
                   </div>
                 </div>
                 <Card.Text className={styles["movie--details--review--list--item--reviewer--body"]}>
-                  Some quick example text to build on the card title and make up the bulk
-                  of the card's content. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem doloribus omnis alias eligendi ipsam, temporibus, voluptatibus aperiam est deleniti commodi error fuga vel itaque beatae cum quaerat iusto, perferendis tempore ex iure aspernatur corporis consectetur suscipit! Consequuntur dicta accusantium dolor minima nostrum, reprehenderit in dolores, dignissimos libero minus, explicabo fugit.
+                  Nom ~ Nom ~ Nom ~ Nom ~ Nom ~ Nom ~ Nom ~ Nom ~ Nom ~ Nom ~ Nom ~ Nom ~ Nom ~ Nom ~ Nom ~ Nom ~ Nom ~ Nom ~ Nom ~ Nom ~ Nom ~ Nom ~ Nom ~ Nom ~ Nom ~ Nom ~ Nom ~ 
                 </Card.Text>
               </div>
               {/* <Card.Title>Prem Card Tdditle </Card.Title>
@@ -226,7 +234,7 @@ export default function Reviews(){
             </Card.Body>
           </Card>
 
-        </div>
+        </div> : <Skeleton count={4} height={5}/>}
       </Container>
     </section>
   );

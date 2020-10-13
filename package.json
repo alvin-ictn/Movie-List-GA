@@ -1,4 +1,5 @@
 {
+  "homepage": "https://alvin-ictn.github.io/Le-Movie/",
   "name": "teame-frontend",
   "version": "0.1.0",
   "private": true,
@@ -9,6 +10,7 @@
     "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
     "formik": "^2.2.0",
+    "lodash": "^4.17.20",
     "react": "^16.13.1",
     "react-bootstrap": "^1.3.0",
     "react-bootstrap-sweetalert": "^5.2.0",

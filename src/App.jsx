@@ -16,7 +16,8 @@ class App extends React.Component {
       <div className="App">
         <Router>
           <Switch>
-            <Route path="/detail/:movieid" component={DetailPage} />
+            <Route path="/Le-Movie/detail/:movieid" component={DetailPage} />
+            <Route path="/Le-Movie/" component={Dm} />
             <Route path="/" component={Dm} />
             <Route render={() => "404"} />
           </Switch>
