@@ -30,13 +30,13 @@ export default function Modals(props) {
   useEffect(() => {
     token && localStorage.setItem("token", token);
     if (token && !localStorage.getItem("userdata"))
-      user("detail", null, { token }).then((res) =>{
+      user("detail", null,  token ).then((res) =>{
         localStorage.setItem('userdata', JSON.stringify({ ...res.data.users }))
         props.closeModal()
         }
       );
    
-  }, [props, token]);
+  }, [props,token]);
 
   // a function to handle input and do form validation over here too
   const handleInput = (e) => {
@@ -94,7 +94,7 @@ export default function Modals(props) {
 
   const submitButton = (e) => {
     e.preventDefault();
-    
+
     if (isSignup) {
       user("register", { ...form }).then((res) => {
         if(res.status === 200 || res.status === 201){
@@ -109,7 +109,9 @@ export default function Modals(props) {
         }
       });
     } else {
-      user("login", { ...form }).then((res) => {
+      
+      user("login", form).then((res) => {
+        console.log(form)
         if(res.status === 200){
           res.data.token && setToken(res.data.token);
         } else {

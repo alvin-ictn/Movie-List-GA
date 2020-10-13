@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Image,
   Badge,
@@ -8,11 +8,19 @@ import {
   Row
 } from "react-bootstrap";
 
+import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa'
+
 import { user, movie, review } from '../../database/db'
+
 import img from '../../images/thumbnail.jpg'
+
 import ReactStars from "react-rating-stars-component";
+
 import styles from './Reviews.module.css'
+
 import Circle from '../../component/reusable/CircleGenerator'
+
+import Skeleton from 'react-loading-skeleton';
 
 
 export default function Reviews(){
@@ -20,7 +28,7 @@ export default function Reviews(){
 
   const [chara,setChara] = useState(0);
 
-  const [userData, setUser] = useState();
+  const [userData,setUser] = useState(JSON.parse(localStorage.getItem('userdata')) || []);
 
   const [dataMovie,setMovie] = useState();
 
@@ -28,28 +36,42 @@ export default function Reviews(){
 
   const [filterReview, setReview] = useState();
 
+  const [myReview, setMine] = useState()
+
   const [pReview,setPost] = useState()
+
+  const myRef = useRef(null)
+
+  const textbox = useRef()
+
+  const [isEdit,setEdit] = useState(false)
+
+  const [isLoading,setLoading] = useState(false)
 
   const url = "https://warm-bastion-18573.herokuapp.com";
  
   useEffect(() => {
-    user("detail",null,localStorage.getItem('token')).then(res => setUser({...res.data}))
+    if(!userData.length >= 3)  user("detail",null,localStorage.getItem('token')).then(res => setUser({...res.data}))
     movie("search",query[query.length - 2]).then(res => setMovie(res.data[0]))
     review("all",localStorage.getItem('token')).then(res => setReviews([...res.data]))
-  },[query])
+  },[query, isLoading, userData.length])
 
   useEffect(() => {
     if(reviw && dataMovie) {
+
       let dataReview = reviw.filter(item => item.MovieId === dataMovie.id)
+
+      let myReview = dataReview.filter(item => item.user.id === userData.id)
+      
       setReview(dataReview)
-      console.log(dataReview)
-      console.log(userData && userData.users)
+      setMine(myReview[0])
     }
-  },[dataMovie, reviw])
+  },[dataMovie, reviw, userData])
+
 
   useEffect(() => {
-    console.log(pReview)
-  },[pReview])
+    setLoading(false)
+  },[filterReview])
 
   const ratingChanged = (e) => {
     setPost({...pReview,"rating" : e})
@@ -60,15 +82,40 @@ export default function Reviews(){
     setPost({...pReview, "content" : e.target.value.slice(0,280)})
   }
 
+  const handleEdit = (e) => {
+    textbox.current.value = myRef.current.innerText;
+    textbox.current.focus();
+    setEdit(true)
+  }
+
+  const handleDelete = (e) => {
+    console.log(myReview)
+  }
+
   const pressIt = (e) => {
     if(e.ctrlKey && e.which === 13){
-      if(pReview && dataMovie) review("post",pReview,localStorage.getItem('token'),dataMovie.id).then(res => {
-        if(res.status === 200 || res.status === 201){
-          setPost({})
+      if(pReview && dataMovie) 
+        if(!isEdit){
+          review("post",pReview,localStorage.getItem('token'),dataMovie.id).then(res => {
+            if(res.status === 200 || res.status === 201){
+              setPost({})
+            }else {
+              console.error(res.data.msg)
+            }
+          })
         }else {
-          console.error(res.data.msg)
+          review("edit",pReview,localStorage.getItem('token'),dataMovie.id).then(res => {
+            if(res.status === 200 || res.status === 201){
+              setPost({})
+              setEdit(false)
+            }else {
+              console.error(res.data.msg)
+            }
+          })
+          textbox.current.value = ""
+            setLoading(true)
         }
-      })
+   
     }
   }
 
@@ -100,7 +147,7 @@ export default function Reviews(){
             </div>
             <Row>
               <Col sm={10} className={styles.textBox}>
-                <textarea onKeyPress={(e) => pressIt(e)} onChange={(e) => handleInput(e)}className="form-control" rows="3"></textarea></Col>
+                <textarea ref={textbox} onKeyPress={(e) => pressIt(e)} onChange={(e) => handleInput(e)}className="form-control" rows="3"></textarea></Col>
               <Col sm={2} className={`${styles.circleE} align-self-center text-right`}><Circle length={chara} size={30} text/></Col>
             </Row>
           
@@ -121,7 +168,12 @@ export default function Reviews(){
                 <div className={styles["movie--details--review--list--item--reviewer"]}>
                   <div className={styles["movie--details--review--list--item--reviewer--head"]}>
                     <div className="movie--details--review--list--item--reviewer--head--content">
-                      <label className="movie--details--review--list--item--reviewer--head--contentusername">{item.user.name}</label>
+                      <label className="movie--details--review--list--item--reviewer--head--contentusername">{item.user.name}</label>{" "}
+                      <Badge variant="primary">{userData && userData.id === item.user.id && "You"}</Badge>
+                      {userData && userData.id === item.user.id && <>
+                        {" "}<FaPencilAlt style={{cursor:"pointer"}} onClick={(e)=>handleEdit(e)}/>{" "}
+                        <FaTrashAlt style={{cursor:"pointer"}} onClick={(e)=>handleDelete(e)}/>
+                      </>}
                     </div>
                     <div className={styles["movie--details--review--list--item--reviewer--head--rate"]}>
                       <ReactStars
@@ -133,8 +185,8 @@ export default function Reviews(){
                       />
                     </div>
                   </div>
-                  <Card.Text className={styles["movie--details--review--list--item--reviewer--body"]}>
-                  {item.content}
+                  <Card.Text ref={myRef} className={styles["movie--details--review--list--item--reviewer--body"]}>
+                  {!isLoading ? item.content : <Skeleton/>}
                   </Card.Text>
                 </div>
               </Card.Body>

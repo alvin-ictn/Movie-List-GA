@@ -35,6 +35,7 @@ const configuration = {
 
 const user = (method, content = null, token = null) => {
   // get method
+  
   if (method === "detail") {
     return axios.get(
       `${configuration.url}${configuration.endpoint.user.self}`,
@@ -43,7 +44,8 @@ const user = (method, content = null, token = null) => {
           token
         }
       }
-    );
+    ).then(res => res)
+    .catch(res => res.results)
   }
 
   if (method === "getuser") {
@@ -80,6 +82,8 @@ const user = (method, content = null, token = null) => {
   }
 
   if (method === "login") {
+    console.log(content)
+    console.log(configuration.endpoint.user.login)
     return axios
       .post(`${configuration.url}${configuration.endpoint.user.login}`, content)
       .then((res) => res)
@@ -157,11 +161,19 @@ const review = (method, content = null, token = null, query = null) => {
   }
 
   if (method === "post") {
-    console.log("IMhere")
-    console.log(query)
-    console.log(content)
-    console.log(token)
     return axios.post(
+      `${configuration.url}${configuration.endpoint.review.self}?MovieId=${query}`,content,
+      {
+        headers: {
+          token
+        },
+      }
+    ).then(res => res)
+    .catch(err => err.response)
+  }
+
+  if (method === "edit") {
+    return axios.put(
       `${configuration.url}${configuration.endpoint.review.self}?MovieId=${query}`,content,
       {
         headers: {
