@@ -110,13 +110,11 @@ const user = (method, content = null, token = null) => {
         content,
         {
           headers: {
-            ...token,
+            token,
           },
         }
-      )
-      .catch((err) => {
-        console.error(err);
-      });
+      ).then(res => res)
+      .catch(err =>  err.response);
   }
 }
 
@@ -173,6 +171,7 @@ const review = (method, content = null, token = null, query = null) => {
   }
 
   if (method === "edit") {
+    console.log("TEST")
     return axios.put(
       `${configuration.url}${configuration.endpoint.review.self}?MovieId=${query}`,content,
       {
@@ -180,7 +179,7 @@ const review = (method, content = null, token = null, query = null) => {
           token
         },
       }
-    ).then(res => res)
+    ).then(res => console.log(res))
     .catch(err => err.response)
   }
 

@@ -16,7 +16,9 @@ import Logo from "../../images/Logo.svg";
 
 export default function Bar(props) {
   const [isLogin,setLogin] = useState(false);
+
   const [userData,setData] = useState(JSON.parse(localStorage.getItem('userdata')) || {name:"",image:""})
+  
 
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     <p
@@ -34,6 +36,8 @@ export default function Bar(props) {
   //   sign: false,
   //   login: false,
   // })
+
+  
   
   const [show, setShow] = useState(false)
 

@@ -23,7 +23,7 @@ export default function Overview(props) {
   const [data,setData] = useState()
 
   useEffect(() => {
-    movie("search",query[query.length - 2]).then(res => setData(res.data[0]))
+    movie("search",query[query.length - 3]).then(res => setData(res.data[0]))
   },[query])
 
   useEffect(()=>{
@@ -38,7 +38,7 @@ export default function Overview(props) {
             <div className="position-relative">
               {data ? <Image
                 style={{ position: "relative" }}
-                src={data.poster}
+                src={data.poster.match(/^(http|https):/) ? `https://warm-bastion-18573.herokuapp.com${data.poster}` : data.poster}
                 fluid
                 thumbnail
               /> : <Image style={{ position: "relative" }}

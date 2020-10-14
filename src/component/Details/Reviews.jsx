@@ -51,7 +51,7 @@ export default function Reviews(){
  
   useEffect(() => {
     if(!userData.length >= 3)  user("detail",null,localStorage.getItem('token')).then(res => setUser({...res.data}))
-    movie("search",query[query.length - 2]).then(res => setMovie(res.data[0]))
+    movie("search",query[query.length - 1]).then(res => setMovie(res.data[0]))
     review("all",localStorage.getItem('token')).then(res => setReviews([...res.data]))
   },[query, isLoading, userData.length])
 
@@ -81,8 +81,6 @@ export default function Reviews(){
   }
 
   const handleEdit = (e) => {
-    console.log(myRef)
-    console.log(myReview)
     textbox.current.value = myRef.current.innerText;
     textbox.current.focus();
     setEdit(true)
@@ -129,15 +127,24 @@ export default function Reviews(){
     <section className={styles["movie--details--review"]}>
       <Container>
         <div className={styles["movie--details--review--post"]}>
-          <div className={styles["movie--details--review--post--profile"]}></div>
+          
           <div className={styles["movie--details--review--post--action"]}>
+          <div className={styles["movie--details--review--post--profile"]}>
+              <Image roundedCircle src={`
+                ${(userData.image.match(/^(http|https):/) && userData.image.match(/(jpg|png)$/)) 
+                  ? userData.image 
+                  : userData.image.match(/^(http|https):/) 
+                  ? `${userData.image}.png`
+                  : `${url}/${userData.image}`}`
+                } alt="Missing" className={styles["movie--details--review--list--item--thumbnail"]} />
+          </div>
             <Row>
               <Col>
                 <label
                   htmlFor="name"
                   className={styles["movie--details--review--post--action--name"]}
                 >
-                  Alvin Mantovani
+                  {userData && userData.name}
                 </label>
                 <ReactStars
                   count={5}
@@ -147,13 +154,14 @@ export default function Reviews(){
                   isHalf={true}
                 />
               </Col>
-              <Col> </Col>
+              
             </Row>
             </div>
             <Row>
               <Col sm={10} className={styles.textBox}>
                 <textarea ref={textbox} onKeyPress={(e) => pressIt(e)} onChange={(e) => handleInput(e)}className="form-control" rows="3"></textarea></Col>
-              <Col sm={2} className={`${styles.circleE} align-self-center text-right`}><Circle length={chara} size={30} text/></Col>
+              <Col sm={2} className={`${styles.circleE} align-self-center text-right`}>
+                <Circle length={chara} size={15} text/></Col>
             </Row>
         </div>
         {!isLoading ? 

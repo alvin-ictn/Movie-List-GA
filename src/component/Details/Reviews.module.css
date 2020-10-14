@@ -27,6 +27,11 @@
     justify-self: flex-end;
 }
 
+.movie--details--review--post--action {
+    display: flex;
+    
+}
+
 .movie--details--review--list--item--reviewer--body {
     text-align: justify;
 }
