@@ -35,8 +35,8 @@ export default function Modals(props) {
         props.closeModal()
         }
       );
-   
-  }, [props,token]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
   // a function to handle input and do form validation over here too
   const handleInput = (e) => {

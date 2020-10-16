@@ -17,7 +17,6 @@ class App extends React.Component {
         <Router>
           <Switch>
             <Route path="/Le-Movie/detail/:movieid" component={DetailPage} />
-            <Route path="/Le-Movie/" component={Dm} />
             <Route path="/" component={Dm} />
             <Route render={() => "404"} />
           </Switch>

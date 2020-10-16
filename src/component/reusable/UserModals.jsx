@@ -38,6 +38,7 @@ export default function UserModals(props,location) {
 
   useEffect(()=>{
     setToken(localStorage.getItem('token'))
+
   },[modal])
 
   useEffect(()=>{
@@ -108,7 +109,6 @@ export default function UserModals(props,location) {
   }
   const submitButton = (e) => {
     e.preventDefault();
-    console.log("WORK??")
     if (true) {
       user("edit", form,localStorage.getItem('token')).then( res => {
         console.log(res)

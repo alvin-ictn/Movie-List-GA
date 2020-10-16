@@ -14,6 +14,8 @@ import UserModal from './UserModals';
 
 import Logo from "../../images/Logo.svg";
 
+import {AiOutlinePoweroff, AiOutlineDropbox, AiOutlineEdit} from 'react-icons/ai'
+
 export default function Bar(props) {
   const [isLogin,setLogin] = useState(false);
 
@@ -32,12 +34,6 @@ export default function Bar(props) {
       {children} 
     </p>
   ));
-  // const [condition,setCondition] = useState({
-  //   sign: false,
-  //   login: false,
-  // })
-
-  
   
   const [show, setShow] = useState(false)
 
@@ -59,6 +55,11 @@ export default function Bar(props) {
 
   const userModal = () => {
     setUserModal(!showUserModal)
+  }
+
+  const handleLogOut = () => {
+    localStorage.clear();
+    setLogin(false);
   }
   
   useEffect(()=>{
@@ -93,13 +94,14 @@ export default function Bar(props) {
               </Navbar.Text>
               <Image
                 style={{ width: "50px", height: "50px" }}
-                src={userData.image}
+                src={`https://warm-bastion-18573.herokuapp.com/${userData.image}`}
                 roundedCircle
               />
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item onClick={userModal} href="#/edit">Edit</Dropdown.Item>
-                <Dropdown.Item onClick={userModal} href="#/delete">Delete</Dropdown.Item>
+                <Dropdown.Item onClick={userModal} href="#/edit"><AiOutlineEdit/>Edit</Dropdown.Item>
+                <Dropdown.Item onClick={userModal} href="#/delete"><AiOutlineDropbox/>Delete</Dropdown.Item>
+                <Dropdown.Item onClick={handleLogOut} href="#/delete"><AiOutlinePoweroff/>Log Out</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
               
