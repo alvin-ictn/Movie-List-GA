@@ -2,6 +2,8 @@ import React,{ useEffect, useState} from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
 import { user } from '../../database/db'
 
+import './Modals.css'
+
 export default function UserModals(props,location) {
   const [modal,setModal] = useState("");
 
@@ -104,7 +106,7 @@ export default function UserModals(props,location) {
 
   const handleImage = e => {
     setForm({...form, 
-      ["image"] : e.target.files[0]
+      "image" : e.target.files[0]
     })
   }
   const submitButton = (e) => {

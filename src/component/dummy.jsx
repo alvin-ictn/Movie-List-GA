@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import Header from "./Header";
 import { movie } from "../database/db";
-import { Container } from "react-bootstrap";
+import { Container,Card} from "react-bootstrap";
+
+import './MovieCard.css'
 export default class dummy extends Component {
   state = {
     results: [],
@@ -35,7 +37,7 @@ export default class dummy extends Component {
         <Header img={this.state.results[0] && this.state.results[0].backdrop} />
         <Container>
         {this.state.results.map((item) => (
-          <div className="m-3" key={item.id} style={{ display: "inline-block", width: "150px", height: "225px",verticalAlign:"top" }}>
+          <Card className="m-3 movieList" key={item.id} style={{ display: "inline-block", width: "150px", height: "225px",verticalAlign:"top" }}>
             <img
               style={{ width: "150px", height: "225px" }}
               width={150}
@@ -52,7 +54,10 @@ export default class dummy extends Component {
               alt={`poster`}
               onError={(e) => this.handleImage(e)}
             />
-          </div>
+            <div className="overlay">
+              TEST
+            </div>
+          </Card>
           
         ))}
         </Container>
