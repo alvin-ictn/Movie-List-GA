@@ -1,5 +1,6 @@
 .movieList {
   position: relative;
+  overflow:hidden;
 }
 
 .movieList > img{
@@ -21,6 +22,26 @@
 
 .movieList:hover .overlay {
   opacity: 1;
+}
+
+.test {
+  position:absolute;
+  top: -50px;
+  display:flex;
+  justify-self: center;
+  transition: 0.5s ease;
+
+}
+
+.movieList:hover .test {
+  top: 0px;
+}
+
+.bottom--panel {
+  position: absolute;
+  bottom: 0;
+  background: white;
+  width:100%;
 }
 
 .text {
