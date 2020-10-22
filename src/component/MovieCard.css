@@ -46,7 +46,7 @@
   left: 35px;
 }
 
-.badge {
+.overlay .badge {
   opacity: 0;
   transition: all 1.5s ease;
 }

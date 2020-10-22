@@ -130,8 +130,7 @@ export default function Reviews(){
           
           <div className={styles["movie--details--review--post--action"]}>
           <div className={styles["movie--details--review--post--profile"]}>
-              <Image roundedCircle src={`
-                ${(userData.image.match(/^(http|https):/) && userData.image.match(/(jpg|png)$/)) 
+              <Image roundedCircle src={`${(userData.image.match(/^(http|https):/) && userData.image.match(/(jpg|png)$/)) 
                   ? userData.image 
                   : userData.image.match(/^(http|https):/) 
                   ? `${userData.image}.png`
@@ -171,8 +170,7 @@ export default function Reviews(){
               border="primary"
               className="mb-2">
               <Card.Body className={styles["movie--details--review--list--item"]}>
-                <Image roundedCircle src={`
-                ${(item.user.image.match(/^(http|https):/) && item.user.image.match(/(jpg|png)$/)) 
+                <Image roundedCircle src={`${(item.user.image.match(/^(http|https):/) && item.user.image.match(/(jpg|png)$/)) 
                   ? item.user.image 
                   : item.user.image.match(/^(http|https):/) 
                   ? `${item.user.image}.png`

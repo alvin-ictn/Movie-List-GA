@@ -18,16 +18,20 @@ import styles from "./overview.module.css";
 import { movie } from '../../database/db'
 
 export default function Overview(props) {
-  const [query] = useState(window.location.href.split('/'));
+  const [query,setQuery] = useState(window.location.href.split('/'));
 
   const [data,setData] = useState()
 
   useEffect(() => {
-    movie("search",query[query.length - 3]).then(res => setData(res.data[0]))
+    console.log(window.location.href.split('/'))
+    setQuery(window.location.href.split('/'))
+  }, [props])
+  useEffect(() => {
+    console.log(query[query.length - 3])
+    movie("search",query[query.length - 3]).then(res => {setData(res.data[0]);console.log(res)})
   },[query])
 
   useEffect(()=>{
-    console.log(data)
   },[data])
 
   return (
@@ -36,12 +40,12 @@ export default function Overview(props) {
         <Row>
           <Col md={4}>
             <div className="position-relative">
-              {data ? <Image
+              {data ? <Image width={280} height={386}
                 style={{ position: "relative" }}
-                src={data.poster.match(/^(http|https):/) ? `https://warm-bastion-18573.herokuapp.com${data.poster}` : data.poster}
+                src={data.poster.match(/^(http|https):/) ? data.poster: `https://warm-bastion-18573.herokuapp.com${data.poster}`}
                 fluid
                 thumbnail
-              /> : <Image style={{ position: "relative" }}
+              /> : <Image style={{ position: "relative" }} width={280} height={386}
               src={`data:image/svg+xml;charset=UTF-8,<svg%20width%3D"500"%20height%3D"750"%20xmlns%3D"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg"%20viewBox%3D"0%200%2050%2075"%20preserveAspectRatio%3D"none"><defs><style%20type%3D"text%2Fcss">%23holder_174fcf1a1bf%20text%20%7B%20fill%3A%23999%3Bfont-weight%3Anormal%3Bfont-family%3A-apple-system%2CBlinkMacSystemFont%2C%26quot%3BSegoe%20UI%26quot%3B%2CRoboto%2C%26quot%3BHelvetica%20Neue%26quot%3B%2CArial%2C%26quot%3BNoto%20Sans%26quot%3B%2Csans-serif%2C%26quot%3BApple%20Color%20Emoji%26quot%3B%2C%26quot%3BSegoe%20UI%20Emoji%26quot%3B%2C%26quot%3BSegoe%20UI%20Symbol%26quot%3B%2C%26quot%3BNoto%20Color%20Emoji%26quot%3B%2C%20monospace%3Bfont-size%3A10pt%20%7D%20<%2Fstyle><%2Fdefs><g%20id%3D"holder_174fcf1a1bf"><rect%20width%3D"50"%20height%3D"75"%20fill%3D"%23373940"><%2Frect><g><text%20x%3D"6"%20y%3D"45">Poster<%2Ftext><%2Fg><%2Fg><%2Fsvg>`}
               fluid
               thumbnail/>}
@@ -76,10 +80,10 @@ export default function Overview(props) {
                 <td>
                   {data && data.category.split(" ").map((item, index) => (
                     item.toLowerCase() === "action" 
-                      ? <Badge key={index} variant="primary">Action</Badge>
+                      ? <Badge className="mx-2" key={index} variant="primary">Action</Badge>
                     : item.toLowerCase() === "thriller" 
-                      ? <Badge key={index} variant="danger">Thriller</Badge> 
-                    : <Badge key={index} variant="primary">Romance</Badge> 
+                      ? <Badge className="mx-2" key={index} variant="danger">Thriller</Badge> 
+                    : <Badge className="mx-2" key={index} variant="success">Romance</Badge> 
                   ))}
                 </td>
               </tr>
