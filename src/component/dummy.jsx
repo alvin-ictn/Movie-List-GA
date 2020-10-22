@@ -50,7 +50,6 @@ export default class dummy extends Component {
                 style={{ width: "150px", height: "225px" }}
                 width={150}
                 height={225}
-                onClick={() => this.onClickDetail(item.title)}
                 id={item.id}
                 src={
                   item.poster.match(/^(http|https):/)
@@ -63,16 +62,52 @@ export default class dummy extends Component {
                 onError={(e) => this.handleImage(e)}
               />
               <div className="overlay">
-                <button className="test">TEST</button>
-                <div class="bottom--panel">
-                <ReactStars
-                  count={5}
-                  value={item.rating / 2}
-                  size={24}
-                  activeColor="#ffd700"
-                  isHalf={true}
-                  edit={false}
-                />
+                <label className="text-light text-center">{item.title}</label>
+                <button onClick={() => this.onClickDetail(item.title)} className="watchButton p-2">
+                  <svg
+                    version="1.1"
+                    id="Capa_1"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 320.001 320.001"
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      fill: "white",
+                      position: "relative",
+                      left: "5px",
+                    }}
+                  >
+                    <path
+                      d="M295.84,146.049l-256-144c-4.96-2.784-11.008-2.72-15.904,0.128C19.008,5.057,16,10.305,16,16.001v288
+                    c0,5.696,3.008,10.944,7.936,13.824c2.496,1.44,5.28,2.176,8.064,2.176c2.688,0,5.408-0.672,7.84-2.048l256-144
+                    c5.024-2.848,8.16-8.16,8.16-13.952S300.864,148.897,295.84,146.049z"
+                    />
+                  </svg>
+                </button>
+                <div>
+                  {item.category.indexOf(",") && item.category.includes(",")
+                    ? item.category.split(",").map((data, key) => (
+                        <div key={key} className="badge badge-primary mx-2">
+                          {data}
+                        </div>
+                      ))
+                    : item.category.split(" ").map((data, key) => (
+                        <div key={key} className="badge badge-primary mx-2">
+                          {data}
+                        </div>
+                      ))}
+                </div>
+                <div className="badge badge-primary"></div>
+                <div className="bottom--panel">
+                  <ReactStars
+                    count={5}
+                    value={item.rating / 2}
+                    size={24}
+                    activeColor="#ffd700"
+                    isHalf={true}
+                    edit={false}
+                  />
                 </div>
               </div>
             </Card>

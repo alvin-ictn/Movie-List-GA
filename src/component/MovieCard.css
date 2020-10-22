@@ -18,30 +18,59 @@
   opacity: 0;
   transition: .5s ease;
   background-color: rgba(0,0,0,0.5);
+  margin: 0 auto;
+  text-align:center;  
 }
 
 .movieList:hover .overlay {
   opacity: 1;
 }
 
-.test {
+.watchButton {
   position:absolute;
   top: -50px;
   display:flex;
+  margin: 0 auto;
+  width: 70px;
+  height: 70px;
+  display:flex;
   justify-self: center;
-  transition: 0.5s ease;
-
+  text-align:center;
+  transition: all 0.5s ease;
+  border-radius: 50%;
+  justify-content: center;
+  text-align:center;
+  align-items:center;
+  background-color: transparent;
+  border: 2px dashed  white;
+  left: 35px;
 }
 
-.movieList:hover .test {
-  top: 0px;
+.badge {
+  opacity: 0;
+  transition: all 1.5s ease;
+}
+
+.movieList:hover .badge {
+  opacity: 1;
+}
+
+.movieList:hover .watchButton {
+  display:flex;
+  top: 100px;
+  margin: 0 auto;
 }
 
 .bottom--panel {
   position: absolute;
   bottom: 0;
-  background: white;
+  background-color: rgb(43, 43, 43);
   width:100%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  line-height:24px;
 }
 
 .text {

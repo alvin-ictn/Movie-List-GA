@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 // import '.'
 import Dm from './component/dummy'
 import DetailPage from './pages/DetailPage'
-
+import Footer from './component/footer/Footer'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 class App extends React.Component {
@@ -21,6 +21,7 @@ class App extends React.Component {
             <Route render={() => "404"} />
           </Switch>
         </Router>
+        <Footer/>
       </div>
     );
   }
