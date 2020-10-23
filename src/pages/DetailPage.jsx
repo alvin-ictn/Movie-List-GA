@@ -14,6 +14,7 @@ export default class DetailPage extends Component {
   };
 
   componentDidMount() {
+    console.log('testdd')
     movie("search",this.state.query[this.state.query.length - 3])
       .then(res => {
         console.log(res)
@@ -23,8 +24,12 @@ export default class DetailPage extends Component {
       )
   }
 
-  componentDidUpdate() {
+  componentWillUnmount(){
+    console.log('testdd')
+  }
 
+  componentDidUpdate() {
+  
   }
 
   render() {

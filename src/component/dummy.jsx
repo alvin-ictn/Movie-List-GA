@@ -113,6 +113,7 @@ export default class dummy extends Component {
             </Card>
           ))}
         </Container>
+        {this.state.results.map(item => <p>{item.trailer}</p>)}
       </div>
     );
   }
